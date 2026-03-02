@@ -299,58 +299,39 @@ Uninstall removes the installed script and deletes the injected keybind block fr
 
 If your monitor output name differs, update the output in `live-wall.sh`.
 
-# Live Wallpaper Manager Installer for Hyprland
+---
+### `calendar.sh`
 
-A single run installer that sets up a Live Wallpaper TUI manager on Arch based Hyprland setups. It installs the script locally, adds a Hyprland keybind to open it in a floating Kitty window, and reloads Hyprland so the bind works immediately.
+A clickable calendar module for **Waybar** that shows the current date and displays a full calendar popup when clicked.
 
-## What This Script Does
+#### Features
 
-1. Installs `live-wall.sh` to `~/.local/bin/live-wall.sh`
-2. Creates the config directory `~/.config/live-wall` and the file `wallpapers.conf`
-3. Adds a Hyprland keybind in `~/.config/hypr/bindings.conf` only if not already present
-4. Adds floating window rules for the popup terminal
-5. Reloads Hyprland after updating config when `hyprctl` is available
-6. Checks for required dependencies and prints install commands if missing
+- **Continuous Output:** Provides JSON output for Waybar with the current date and a tooltip.
+- **Clickable Popup:** When clicked, it displays a `yad` calendar popup for easy date checking.
+- **Singleton Popup:** Ensures only one calendar popup instance is running at a time.
 
-## Keybind Installed
+#### Requirements
 
-Opens the manager in Kitty as a floating window.
+- `yad` (for the calendar popup)
+- Waybar
 
-Keybind
+#### Usage
 
-`SUPER + W`
+To use this script with Waybar, add the following to your `config.jsonc`:
 
-## Requirements
-
-1. Hyprland
-2. kitty
-3. linux wallpaper engine
-
-The script uses the command `linux-wallpaperengine`.
-
-## Install
-
-Run directly from GitHub.
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/shreyasmene06/OmarchyMadeEasy/main/install-live-wall.sh | bash
+```json
+"custom/calendar": {
+    "format": "{}",
+    "exec": "~/.config/waybar/calendar/calendar.sh",
+    "on-click": "~/.config/waybar/calendar/calendar.sh --click",
+    "return-type": "json"
+}
 ```
 
-## Uninstall
-
+Make sure the script is executable:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/shreyasmene06/OmarchyMadeEasy/main/install-live-wall.sh | bash -s -- --uninstall
+chmod +x ~/.config/waybar/calendar/calendar.sh
 ```
-
-Uninstall removes the installed script and deletes the injected keybind block from `~/.config/hypr/bindings.conf`. Your wallpaper list is kept at `~/.config/live-wall`.
-
-## Notes
-
-1. The popup uses `kitty --class floating-term` and Hyprland window rules match `class:^(floating-term)$`
-2. The installer backs up `~/.config/hypr/bindings.conf` to `bindings.conf.backup` before editing
-3. The wallpaper engine target is currently hardcoded as `--screen-root eDP-1` inside `live-wall.sh`
-
-If your monitor output name differs, update the output in `live-wall.sh`.
 
 ## Future Development
 
