@@ -319,15 +319,6 @@ A clickable calendar module for **Waybar** that shows the current date and displ
 
 To use this script with Waybar, add the following to your `config.jsonc`:
 
-```json
-"custom/calendar": {
-    "format": "{}",
-    "exec": "~/.config/waybar/calendar/calendar.sh",
-    "on-click": "~/.config/waybar/calendar/calendar.sh --click",
-    "return-type": "json"
-}
-```
-
 Make sure the script is executable:
 ```bash
 chmod +x ~/.config/waybar/calendar/calendar.sh
